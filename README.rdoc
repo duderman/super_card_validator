@@ -1,0 +1,7 @@
+= super_card_validator
+
+Super card validator
+
+== Docs
+:include:super_card_validator.rdoc
+

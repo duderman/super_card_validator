@@ -1,0 +1,5 @@
+= super_card_validator
+
+Generate this with
+    super_card_validator rdoc
+After you have described your command line interface
