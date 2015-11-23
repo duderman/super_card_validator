@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+
+require 'gli'
+require 'table_print'
+
+require File.expand_path('../../lib/super_card_validator', __FILE__)
+
+include GLI::App
+
+program_desc 'Validates card numbers'
+
+version SuperCardValidator::VERSION
+
+subcommand_option_handling :normal
+arguments :strict
+
+arg_name 'card_number', [:multiple]
+desc 'Validates card number'
+long_desc 'Validates card number through number format for cpecific card ' \
+          'types and luhns algorithm'
+command :validate do |c|
+  c.action do |_global_options, _options, args|
+    cards = args.map { |a| SuperCardValidator::Validator.new(a) }
+
+    tp(
+      cards,
+      :number,
+      { type: { display_method: :human_card_type } },
+      { valid?: { display_method: :colored_human_valid } }
+    )
+
+    puts ''
+
+    if cards.any?(&:invalid?)
+      exit_now!('Some cards are invalid. Check output for more info')
+    else
+      puts 'All cards are valid!'
+    end
+  end
+end
+
+exit run(ARGV)
