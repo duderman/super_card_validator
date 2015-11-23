@@ -14,8 +14,6 @@ version SuperCardValidator::VERSION
 subcommand_option_handling :normal
 arguments :strict
 
-# desc 'Describe some switch here'
-
 arg_name 'card_number', [:multiple]
 desc 'Validates card number'
 long_desc 'Validates card number through number format for cpecific card ' \
