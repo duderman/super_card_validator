@@ -1,3 +1,5 @@
+require 'rainbow'
+
 require_relative 'validator/luhn'
 
 module SuperCardValidator
@@ -36,6 +38,10 @@ module SuperCardValidator
       allowed_card_type? && luhn_valid?
     end
 
+    def invalid?
+      !valid?
+    end
+
     # Returns card type of passed number
     def card_type
       @card_type ||= CARD_TYPES.keys.detect { |t| card_has_type?(t) }
@@ -43,7 +49,16 @@ module SuperCardValidator
 
     # Returns card type of passed number
     def human_card_type
-      CARD_TYPES[card_type][:name] unless card_type.nil?
+      if card_type.nil?
+        'Unknown'
+      else
+        CARD_TYPES[card_type][:name]
+      end
+    end
+
+    # Returns colored by Rainbow human-readable validity
+    def colored_human_valid
+      valid? ? Rainbow('YES').green : Rainbow('NO').red
     end
 
     private
