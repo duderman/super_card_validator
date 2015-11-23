@@ -12,7 +12,9 @@ class LuhnTest < Test::Unit::TestCase
     4929519728293050
     4539804862972962
     4716569423631713
-  )
+    4929519728293050
+  ).freeze
+
   def test_valid_numbers
     TEST_NUMBERS.each do |number|
       assert(

@@ -1,1 +1,2 @@
-require 'super_card_validator/version.rb'
+require_relative 'super_card_validator/version'
+require_relative 'super_card_validator/validator'

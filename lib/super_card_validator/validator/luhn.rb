@@ -12,11 +12,12 @@ module SuperCardValidator
         checksum % 10 == 0
       end
 
-      private
-
+      # Returns checksum number calculated by Luhn algorithm
       def checksum
-        luhn_doubled.inject(0) { |a, e| a + sum_of(e) }
+        @checksum ||= luhn_doubled.inject(0) { |a, e| a + sum_of(e) }
       end
+
+      private
 
       def luhn_doubled
         split_digits(number).reverse
