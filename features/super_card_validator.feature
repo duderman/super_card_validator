@@ -10,27 +10,40 @@ Feature: My bootstrapped app kinda works
   Scenario: Validate correct number
     When I validate number "4916430590266338" with command "super_card_validator validate"
     Then the exit status should be 0
-    And output should contain "4916430590266338"
-    And output should contain "VISA"
-    And output should contain "YES"
+    And output should be
+        """
+        NUMBER           | TYPE | VALID?
+        -----------------|------|-------
+        4916430590266338 | VISA | YES   
+
+        All cards are valid!
+
+        """
 
   Scenario: Validate incorrect number
     When I validate number "5434264898429996" with command "super_card_validator validate"
     Then the exit status should be 1
-    And output should contain "5434264898429996"
-    And output should contain "MasterCard"
-    And output should contain "NO"
+    And output should be
+        """
+        NUMBER           | TYPE       | VALID?
+        -----------------|------------|-------
+        5434264898429996 | MasterCard | NO    
+
+        error: Some cards are invalid. Check output for more info
+
+        """
 
   Scenario: Validate correct and incorrect numbers
     When I validate numbers "6011822278021475 370310215536447 123" with command "super_card_validator validate"
     Then the exit status should be 1
-    And output should contain "6011822278021475"
-    And output should contain "Discover"
-    And output should contain "NO"
-    And output should contain "370310215536447"
-    And output should contain "American Express"
-    And output should contain "YES"
-    And output should contain "123"
-    And output should contain "Unknown"
-    And output should contain "NO"
+    And output should be
+        """
+        NUMBER           | TYPE             | VALID?
+        -----------------|------------------|-------
+        6011822278021475 | Discover         | NO    
+        370310215536447  | American Express | YES   
+        123              | Unknown          | NO    
 
+        error: Some cards are invalid. Check output for more info
+
+        """
