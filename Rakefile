@@ -1,21 +1,21 @@
 require 'rake/clean'
 require 'rubygems'
-require 'rubygems/package_task'
 require 'rdoc/task'
 require 'cucumber'
 require 'cucumber/rake/task'
+require 'rspec/core/rake_task'
+
+CUKE_RESULTS = 'results.html'
+CLEAN << CUKE_RESULTS
+
+RSpec::Core::RakeTask.new(:spec)
+
 Rake::RDocTask.new do |rd|
   rd.main = 'README.rdoc'
   rd.rdoc_files.include('README.rdoc', 'lib/**/*.rb', 'bin/**/*')
-  rd.title = 'Your application title'
+  rd.title = 'Super card validator'
 end
 
-spec = eval(File.read('super_card_validator.gemspec'))
-
-Gem::PackageTask.new(spec) do |pkg|
-end
-CUKE_RESULTS = 'results.html'
-CLEAN << CUKE_RESULTS
 desc 'Run features'
 Cucumber::Rake::Task.new(:features) do |t|
   opts = "features --format html -o #{CUKE_RESULTS} --format progress -x"
@@ -35,11 +35,5 @@ end
 task cucumber: :features
 task 'cucumber:wip' => 'features:wip'
 task wip: 'features:wip'
-require 'rake/testtask'
-Rake::TestTask.new do |t|
-  t.libs << 'test'
-  t.libs << 'lib'
-  t.test_files = FileList['test/**/*_test.rb']
-end
 
-task default: [:test, :features]
+task default: [:spec, :features]
