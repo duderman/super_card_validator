@@ -22,12 +22,7 @@ command :validate do |c|
   c.action do |_global_options, _options, args|
     cards = args.map { |a| SuperCardValidator::Validator.new(a) }
 
-    tp(
-      cards,
-      :number,
-      { type: { display_method: :human_card_type } },
-      { valid?: { display_method: :colored_human_valid } }
-    )
+    tp(cards.map(&:presenter))
 
     puts ''
 

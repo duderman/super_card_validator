@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    super_card_validator (0.0.3)
+    super_card_validator (0.1.0)
       gli (= 2.13.3)
       rainbow
       table_print
@@ -35,17 +35,23 @@ GEM
     gli (2.13.3)
     multi_json (1.11.2)
     multi_test (0.1.2)
-    power_assert (0.2.2)
     rainbow (2.0.0)
     rake (10.4.2)
     rdoc (4.2.0)
+    rspec (3.4.0)
+      rspec-core (~> 3.4.0)
+      rspec-expectations (~> 3.4.0)
+      rspec-mocks (~> 3.4.0)
+    rspec-core (3.4.1)
+      rspec-support (~> 3.4.0)
     rspec-expectations (3.4.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-mocks (3.4.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
     table_print (1.5.4)
-    test-unit (3.0.8)
-      power_assert
     thor (0.19.1)
 
 PLATFORMS
@@ -55,8 +61,8 @@ DEPENDENCIES
   aruba
   rake
   rdoc
+  rspec
   super_card_validator!
-  test-unit
 
 BUNDLED WITH
    1.10.6

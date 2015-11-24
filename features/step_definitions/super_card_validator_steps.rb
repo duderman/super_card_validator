@@ -11,3 +11,7 @@ end
 When(/^I validate number(s|) "([\d\s]+)" with command "([^"]*)"/) do |_, numbers, command|
   step %(I run `#{command} #{numbers}`)
 end
+
+Then(/^output should be$/) do |expected|
+  expect(all_commands.map(&:output).join("\n")).to eq(expected)
+end
